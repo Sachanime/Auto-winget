@@ -3,7 +3,7 @@ Script for automate softwares updates with Winget
 
 ## How to use
 
-Download latest release and run `setup.bat` as administrator
+Download latest release and run `Auto-Winget.Installer.exe`
 
 The script will automaticaly download the scheduled task and the powershell script and install it on your system
 
