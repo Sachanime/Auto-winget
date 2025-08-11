@@ -1,6 +1,8 @@
 # Auto-winget
 Script for automate softwares updates with Winget
 
+![GitHub Release](https://img.shields.io/github/v/release/Sachanime/Auto-winget)
+
 ## How to use
 
 Download latest release and run `Auto-Winget.Installer.exe`
