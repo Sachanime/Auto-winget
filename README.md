@@ -1,7 +1,7 @@
 # Auto-winget
 Script for automate softwares updates with Winget
 
-![GitHub Release](https://img.shields.io/github/v/release/Sachanime/Auto-winget)
+[![GitHub Release](https://img.shields.io/github/v/release/Sachanime/Auto-winget)](https://github.com/Sachanime/Auto-winget)
 
 ## How to use
 
