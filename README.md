@@ -5,7 +5,7 @@ Script for automate softwares updates with Winget
 
 ## How to use
 
-Download latest release of SKL [Installer](https://github.com/Sachanime/SKL-Installer) and select "Auto-Winegt"
+Download latest release of [SKL Installer](https://github.com/Sachanime/SKL-Installer) and select "Auto-Winegt"
 
 The script will automaticaly download the scheduled task and the powershell script and install it on your system
 
