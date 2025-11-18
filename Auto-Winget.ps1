@@ -34,5 +34,5 @@ else {
 }
 
 taskkill /F /IM EpicGamesLauncher.exe
-sudo powershell -WindowStyle hidden -Command {winget upgrade --all --accept-package-agreements --accept-source-agreements}
+sudo pwsh -WindowStyle hidden -Command {winget upgrade --all --accept-package-agreements --accept-source-agreements}
 winget upgrade --wait
