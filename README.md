@@ -3,6 +3,9 @@ Script for automate softwares updates with Winget
 
 [![GitHub Release](https://img.shields.io/github/v/release/Sachanime/Auto-winget?logo=Github)](https://github.com/Sachanime/Auto-winget/releases)
 
+> \[!WARNING]\
+This program is not compatible with PowerShell 7
+
 ## How to use
 
 Download latest release of [SKL Installer](https://github.com/Sachanime/SKL-Installer) and select "Auto-Winegt"
