@@ -4,7 +4,9 @@ Script for automate softwares updates with Winget
 [![GitHub Release](https://img.shields.io/github/v/release/Sachanime/Auto-winget?logo=Github)](https://github.com/Sachanime/Auto-winget/releases)
 
 > \[!WARNING]\
-This program is not compatible with PowerShell 7
+This program is not compatible with PowerShell 7 and some softwares
+> 
+> Please read [issues](https://github.com/Sachanime/Auto-winget/issues) for more details
 
 ## How to use
 
