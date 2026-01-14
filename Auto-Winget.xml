@@ -36,7 +36,7 @@
   </Settings>
   <Actions Context="Author">
     <Exec>
-      <Command>"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"</Command>
+      <Command>"C:\Program Files\PowerShell\7\pwsh.exe"</Command>
       <Arguments>-ExecutionPolicy Bypass -File "C:\Program Files\SKL\Auto-Winget\Auto-Winget.ps1"</Arguments>
     </Exec>
   </Actions>
