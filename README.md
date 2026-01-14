@@ -9,7 +9,7 @@ Script for automate softwares updates with Winget
 > \[!WARNING]\
 > This script may not be compatible with some softwares
 > 
-> Please read [issues](https://github.com/Sachanime/Auto-winget/issues) for more details and report other bugs you can encouter
+> Please read [issues](https://github.com/Sachanime/Auto-winget/issues) for more details and report other bugs you can encounter
 
 ## How to use
 
@@ -19,7 +19,7 @@ The script will automaticaly download the scheduled task and the powershell scri
 
 ## File location
 
-The powershell script and the XML scheduled task file are located in `C:\Program Files\SKL\Auto-Winget`
+The PowerShell script and the XML scheduled task file are located in `C:\Program Files\SKL\Auto-Winget`
 
 ## How to etit
 
