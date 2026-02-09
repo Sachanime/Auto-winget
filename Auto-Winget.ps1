@@ -51,8 +51,51 @@ if(winget upgrade --id Roblox.Roblox --include-unknown 2>&1 -match "Version") {
     REG ADD $RobloxRegPath /v DisplayVersion /t REG_SZ /d $RobloxVersion /f
 
     Write-Host "Windows Registry patched for Roblox" -ForegroundColor Green
+    Write-Host ""
     Start-Sleep 3
 
+}
+
+# Corsair iCUE Patch
+if(winget upgrade --id Corsair.iCUE.5 --include-unknown 2>&1 -match "Version") {
+
+    $SetupUrl = "https://www3.corsair.com/software/CUE_V5/public/modules/windows/installer/Install%20iCUE.exe"
+    $SetupPath = "C:\Program Files\SKL\Auto-Winget\iCUESetup.exe"
+
+    Write-Host "A Corsair iCUE5 Software update was detected" -ForegroundColor DarkYellow
+    Write-Host "Your attention is required !" -ForegroundColor DarkYellow
+    Write-Host "You must follow the following steps :" -ForegroundColor Blue
+    Write-Host ""
+    Write-Host "1) Select language and click on Next" -ForegroundColor Blue
+    Write-Host "2) Click on repair and wait unitl the installation is completely finished" -ForegroundColor Blue
+    Write-Host "3) When the installation is finished, click on Finish" -ForegroundColor Blue
+    Write-Host ""
+    Start-Sleep 5
+
+    Write-Host "Downloading setup..." -ForegroundColor Blue
+    Start-Sleep 1
+    curl --output $SetupPath $SetupUrl
+
+    Write-Host "Starting setup..." -ForegroundColor Blue
+    Start-Sleep 1
+    Start-Process $SetupPath -Wait
+
+    Write-Host "Deleting setup..." -ForegroundColor Blue
+    Start-Sleep 1
+    Remove-Item $SetupPath
+
+    Write-Host "Verification..." -ForegroundColor Blue
+    Start-Sleep 3
+
+    if(winget upgrade --id Corsair.iCUE.5 --include-unknown 2>&1 -match "Version") {
+        Write-Host "Corsair iCUE was not updated correctly" -ForegroundColor DarkRed
+        Write-Host "You can open a new issue on the project's Github repository at https://github.com/Sachanime/Auto-winget/issues" -ForegroundColor DarkRed
+    }
+
+    else{
+        Write-Host "Corsair iCUE has been updated " -ForegroundColor Green
+    }
+    
 }
 
 winget upgrade --include-unknown --wait
