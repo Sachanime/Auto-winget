@@ -43,13 +43,31 @@ if(winget upgrade --id Discord.Discord --include-unknown 2>&1 -match "Version") 
 
     winget pin add --id Discord.Discord
     Write-Host ""
-    Write-Host "Discord added to pin list" -ForegroundColor Green
+    Write-Host "Discord has been added to pin list" -ForegroundColor Green
     Write-Host ""
     Start-Sleep 1
 
 }
 
-taskkill /F /IM EpicGamesLauncher.exe
+# Epic Games Patch
+if(winget upgrade --id EpicGames.EpicGamesLauncher --include-unknown 2>&1 -match "Version") {
+
+    Write-Host "An Epic Games Launcher update was detected, the proccess will be killed !" -ForegroundColor DarkYellow
+    Write-Host ""
+    Start-Sleep 5
+    
+    Write-Host "Killing proccess..." -ForegroundColor Blue
+    Write-Host ""
+    Start-Sleep 1
+
+    taskkill /F /IM EpicGamesLauncher.exe
+
+    Write-Host ""
+    Write-Host "Epic Games Launcher proccess has been killed" -ForegroundColor Green
+    Write-Host ""
+
+}
+
 sudo pwsh -WindowStyle hidden -Command {winget upgrade --all --include-unknown --accept-package-agreements --accept-source-agreements --silent}
 
 # Roblox Patch
@@ -69,7 +87,7 @@ if(winget upgrade --id Roblox.Roblox --include-unknown 2>&1 -match "Version") {
     REG ADD $RobloxRegPath /v DisplayVersion /t REG_SZ /d $RobloxVersion /f
 
     Write-Host ""
-    Write-Host "Windows Registry patched for Roblox" -ForegroundColor Green
+    Write-Host "Windows Registry has been patched for Roblox" -ForegroundColor Green
     Write-Host ""
     Start-Sleep 3
 
@@ -120,7 +138,7 @@ if(winget upgrade --id Corsair.iCUE.5 --include-unknown 2>&1 -match "Version") {
     }
 
     else{
-        Write-Host "Corsair iCUE has been updated " -ForegroundColor Green
+        Write-Host "Corsair iCUE has been updated" -ForegroundColor Green
         Write-Host ""
     }
     
