@@ -53,7 +53,6 @@ if(winget upgrade --id Discord.Discord --include-unknown 2>&1 -match "Version") 
 if(winget upgrade --id EpicGames.EpicGamesLauncher --include-unknown 2>&1 -match "Version") {
 
     Write-Host "An Epic Games Launcher update was detected, the proccess will be killed !" -ForegroundColor DarkYellow
-    Write-Host ""
     Start-Sleep 5
     
     Write-Host "Killing proccess..." -ForegroundColor Blue
@@ -68,7 +67,7 @@ if(winget upgrade --id EpicGames.EpicGamesLauncher --include-unknown 2>&1 -match
 
 }
 
-sudo pwsh -WindowStyle hidden -Command {winget upgrade --all --include-unknown --accept-package-agreements --accept-source-agreements --silent}
+pwsh <# -WindowStyle hidden #> -Command {winget upgrade --all --include-unknown --accept-package-agreements --accept-source-agreements --silent}
 
 # Roblox Patch
 if(winget upgrade --id Roblox.Roblox --include-unknown 2>&1 -match "Version") {
@@ -116,17 +115,13 @@ if(winget upgrade --id Corsair.iCUE.5 --include-unknown 2>&1 -match "Version") {
 
     Write-Host ""
     Write-Host "Starting setup..." -ForegroundColor Blue
-    Write-Host ""
     Start-Sleep 1
     Start-Process $SetupPath -Wait
 
-    Write-Host ""
     Write-Host "Deleting setup..." -ForegroundColor Blue
-    Write-Host ""
     Start-Sleep 1
     Remove-Item $SetupPath
 
-    Write-Host ""
     Write-Host "Verification..." -ForegroundColor Blue
     Write-Host ""
     Start-Sleep 3

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-16"?>
+<?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo>
     <Date>2024-09-18T17:01:58.6209139</Date>
@@ -13,6 +13,11 @@
       </ScheduleByDay>
     </CalendarTrigger>
   </Triggers>
+  <Principals>
+    <Principal id="Author">
+      <RunLevel>HighestAvailable</RunLevel>
+    </Principal>
+  </Principals>
   <Settings>
     <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
     <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
@@ -37,7 +42,7 @@
   <Actions Context="Author">
     <Exec>
       <Command>"C:\Program Files\PowerShell\7\pwsh.exe"</Command>
-      <Arguments>-ExecutionPolicy Bypass -File "C:\Program Files\SKL\Auto-Winget\Auto-Winget.ps1"</Arguments>
+      <Arguments>-NoProfile -ExecutionPolicy Bypass -File "C:\Program Files\SKL\Auto-Winget\Auto-Winget.ps1"</Arguments>
     </Exec>
   </Actions>
 </Task>
