@@ -34,7 +34,9 @@ else {
 }
 
 # Discord Patch
-if(winget upgrade --id Discord.Discord --include-unknown 2>&1 -match "Version") {
+$DiscordWinget = winget upgrade --id Discord.Discord --include-unknown 2>&1
+
+if($DiscordWinget -cmatch "Version") {
 
     Write-Host ""
     Write-Host "Discord installation detected, adding to pin list..." -ForegroundColor Blue
@@ -50,7 +52,9 @@ if(winget upgrade --id Discord.Discord --include-unknown 2>&1 -match "Version") 
 }
 
 # Epic Games Patch
-if(winget upgrade --id EpicGames.EpicGamesLauncher --include-unknown 2>&1 -match "Version") {
+$EpicGamesWinget = winget upgrade --id EpicGames.EpicGamesLauncher --include-unknown 2>&1
+
+if($EpicGamesWinget -cmatch "Version") {
 
     Write-Host "An Epic Games Launcher update was detected, the proccess will be killed !" -ForegroundColor DarkYellow
     Start-Sleep 5
@@ -70,7 +74,9 @@ if(winget upgrade --id EpicGames.EpicGamesLauncher --include-unknown 2>&1 -match
 pwsh <# -WindowStyle hidden #> -Command {winget upgrade --all --include-unknown --accept-package-agreements --accept-source-agreements --silent}
 
 # Roblox Patch
-if(winget upgrade --id Roblox.Roblox --include-unknown 2>&1 -match "Version") {
+$RobloxWinget = winget upgrade --id Roblox.Roblox --include-unknown 2>&1
+
+if($RobloxWinget -cmatch "Version") {
 
     $RobloxRegPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\roblox-player"
     $RobloxRegObject = Get-ItemProperty -Path $RobloxRegPath
@@ -93,7 +99,9 @@ if(winget upgrade --id Roblox.Roblox --include-unknown 2>&1 -match "Version") {
 }
 
 # Corsair iCUE Patch
-if(winget upgrade --id Corsair.iCUE.5 --include-unknown 2>&1 -match "Version") {
+$CorsairWinget = winget upgrade --id Corsair.iCUE.5 --include-unknown 2>&1
+
+if($CorsairWinget -cmatch "Version") {
 
     $SetupUrl = "https://www3.corsair.com/software/CUE_V5/public/modules/windows/installer/Install%20iCUE.exe"
     $SetupPath = "C:\Program Files\SKL\Auto-Winget\iCUESetup.exe"
@@ -126,7 +134,7 @@ if(winget upgrade --id Corsair.iCUE.5 --include-unknown 2>&1 -match "Version") {
     Write-Host ""
     Start-Sleep 3
 
-    if(winget upgrade --id Corsair.iCUE.5 --include-unknown 2>&1 -match "Version") {
+    if($CorsairWinget -cmatch "Version") {
         Write-Host "Corsair iCUE was not updated correctly" -ForegroundColor DarkRed
         Write-Host "You can open a new issue on the project's Github repository at https://github.com/Sachanime/Auto-winget/issues" -ForegroundColor DarkRed
         Write-Host ""
