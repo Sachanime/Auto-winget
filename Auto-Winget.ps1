@@ -147,4 +147,27 @@ if($CorsairWinget -cmatch "Version") {
     
 }
 
+# Kolossus Launcher Patch
+$KolossusWinget = winget upgrade --id CodeLyokoGames.KolossusLauncher --include-unknown 2>&1
+
+if($KolossusWinget -cmatch "Version") {
+
+    Write-Host ""
+    Write-Host "Kolossus Launcher installation detected, patching Windows Registry..." -ForegroundColor Blue
+    Write-Host ""
+    Start-Sleep 1
+
+    $KolossusVersionLine = winget show --id CodeLyokoGames.KolossusLauncher | Select-String "Version"
+    $KolossusVersion = [regex]::match($KolossusVersionLine, '([0-9]+(\.[0-9]+)+)').Value
+    $KolossusRegPath = "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{D29A39F9-EABC-471A-81F2-153A6803D3D0}_is1"
+
+    REG ADD $KolossusRegPath /v DisplayVersion /t REG_SZ /d $KolossusVersion /f
+
+    Write-Host ""
+    Write-Host "Windows Registry has been patched for Kolossus Launcher" -ForegroundColor Green
+    Write-Host ""
+    Start-Sleep 3
+
+}
+
 winget upgrade --include-unknown --wait
