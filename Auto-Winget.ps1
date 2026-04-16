@@ -172,4 +172,35 @@ if($KolossusWinget -cmatch "Version") {
 
 }
 
+# PowerShell Patch
+$PowerShellWinget = winget upgrade | Select-String PowerShell
+
+if($PowerShellWinget) {
+
+    Write-Host ""
+    Write-Host "PowerShell update detected, updating..." -ForegroundColor Blue
+    Write-Host ""
+    Start-Sleep 1
+
+    winget install --id Microsoft.PowerShell --source winget --force
+
+    Write-Host "Verification..." -ForegroundColor Blue
+    Write-Host ""
+    Start-Sleep 3
+
+    $PowerShellWinget = winget upgrade | Select-String PowerShell
+
+    if($PowerShellWinget) {
+        Write-Host "PowerShell was not updated correctly" -ForegroundColor DarkRed
+        Write-Host "You can open a new issue on the project's Github repository at https://github.com/Sachanime/Auto-winget/issues" -ForegroundColor DarkRed
+        Write-Host ""
+    }
+
+    else{
+        Write-Host "PowerShell has been updated" -ForegroundColor Green
+        Write-Host ""
+    }
+
+}
+
 winget upgrade --include-unknown --wait
