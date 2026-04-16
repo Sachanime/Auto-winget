@@ -203,4 +203,27 @@ if($PowerShellWinget) {
 
 }
 
+#TeamSpeack Patch
+$TeamSpeakWinget = winget upgrade | Select-String TeamSpeak
+
+if($TeamSpeakWinget) {
+
+    Write-Host ""
+    Write-Host "TeamSpeak installation detected, patching Windows Registry..." -ForegroundColor Blue
+    Write-Host ""
+    Start-Sleep 1
+
+    $TeamSpeakVersionLine = winget show --id TeamSpeakSystems.TeamSpeakClient.Beta.6 | Select-String "Version"
+    $TeamSpeakVersion = [regex]::match($TeamSpeakVersionLine, '([0-9]+(\.[0-9]+)+[a-zA-Z0-9-.]*)').Value
+    $TeamSpeakRegPath = "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{B7D44529-BA9C-41B4-9060-84E9B1BDA99E}"
+
+    REG ADD $TeamSpeakRegPath /v DisplayVersion /t REG_SZ /d $TeamSpeakVersion /f
+
+    Write-Host ""
+    Write-Host "Windows Registry has been patched for TeamSpeak" -ForegroundColor Green
+    Write-Host ""
+    Start-Sleep 3
+
+}
+
 winget upgrade --include-unknown --wait
