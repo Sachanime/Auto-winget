@@ -134,6 +134,8 @@ if($CorsairWinget -cmatch "Version") {
     Write-Host ""
     Start-Sleep 3
 
+    $CorsairWinget = winget upgrade --id Corsair.iCUE.5 --include-unknown 2>&1
+
     if($CorsairWinget -cmatch "Version") {
         Write-Host "Corsair iCUE was not updated correctly" -ForegroundColor DarkRed
         Write-Host "You can open a new issue on the project's Github repository at https://github.com/Sachanime/Auto-winget/issues" -ForegroundColor DarkRed
