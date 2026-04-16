@@ -34,9 +34,9 @@ else {
 }
 
 # Discord Patch
-$DiscordWinget = winget upgrade --id Discord.Discord --include-unknown 2>&1
+$DiscordWinget = winget upgrade | Select-String Discord
 
-if($DiscordWinget -cmatch "Version") {
+if($DiscordWinget) {
 
     Write-Host ""
     Write-Host "Discord installation detected, adding to pin list..." -ForegroundColor Blue
