@@ -43,22 +43,9 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run:
-          VERSION=$(cat RobloxVersion.txt)
+          VERSION=$(cat version.txt)
+          MESSAGE="New Roblox update detected"
           curl -H "Content-Type: application/json" \
           -X POST \
-          -d '{
-            "embeds": [{
-              "title": "New Roblox update detected",
-              "description": "A new Roblox update was detected",
-              "color": 3066993,
-              "fields": [{
-                "name": "Version Hash",
-                "value": "`'"$VERSION"'`",
-                "inline": false
-              }],
-              "footer": {
-                "text": "Detected by Github Actions"
-              },
-              "timestanp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
-            }]
-          }' $DISCORD_WEBHOOK
+          -d "{\"content\": \"MESSAGE\"}" \
+          $DISCORD_WEBHOOK
