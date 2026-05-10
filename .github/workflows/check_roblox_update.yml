@@ -8,6 +8,8 @@ on:
 jobs:
   check-version:
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,32 +22,50 @@ jobs:
       - name: Compare Versions
         id: check
         run: |
+          if [ ! -f RobloxVersion.txt ]; then touch RobloxVersion.txt; fi
           if cmp -s current_version.txt RobloxVersion.txt; then
-            echo "No update detected"
             echo "changed=false" >> $GITHUB_OUTPUT
           else
-            echo "Update detected"
             mv current_version.txt RobloxVersion.txt
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
-  discord-post:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Commit and Push if changed
+      - name: Upload Version File
         if: steps.check.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: roblox-version-file
+          path: RobloxVersion.txt
+
+  discord-post:
+    needs: check-version
+    if: needs.check-version.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Version File
+        uses: actions/download-artifact@v4
+        with:
+          name: roblox-version-file
+
+      - name: Commit and Push
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add RobloxVersion.txt
-          git commit -m "New roblox version detected : ${{ env.LATEST_VERSION }}"
+          git commit -m "New roblox version detected"
           git push
 
-      - name: Exécuter ton script
-        if: steps.check.outputs.changed == 'true'
+      - name: Send Discord Webhook
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          VERSION=$(cat version.txt)
-          MESSAGE="New Roblox update detected"
-          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"🚀 Nouvelle mise à jour Roblox ! Version: $VERSION\"}" DISCORD_WEBHOOK
+          # On lit la version directement dans le fichier téléchargé
+          VERSION=$(cat RobloxVersion.txt)
+          curl -X POST -H "Content-Type: application/json" \
+          -d "{\"content\": \"🚀 **Nouvelle mise à jour Roblox !**\nVersion : \`$VERSION\`\"}" \
+          $DISCORD_WEBHOOK
