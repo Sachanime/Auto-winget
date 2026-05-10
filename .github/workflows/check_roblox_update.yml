@@ -42,7 +42,7 @@ jobs:
         if: steps.check.outputs.changed == 'true'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run:
+        run: |
           VERSION=$(cat version.txt)
           MESSAGE="New Roblox update detected"
-          curl -H "Content-Type: application/json" -d '{"content": "🚀 **Nouvelle mise à jour Roblox !**\nVersion : `'"$VERSION"'`"}' $DISCORD_WEBHOOK
+          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"🚀 Nouvelle mise à jour Roblox ! Version: $VERSION\"}" DISCORD_WEBHOOK
