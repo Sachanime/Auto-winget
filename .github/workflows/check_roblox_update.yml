@@ -1,0 +1,48 @@
+name: Roblox Update Checker
+
+on:
+  schedule:
+    - cron: '*/60 * * * *' # S'exécute toutes les 60 minutes
+  workflow_dispatch:      # Permet de le lancer manuellement pour tester
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Fetch Latest Roblox Version
+        run: |
+          curl -s https://setup.rbxcdn.com/version > current_version.txt
+          echo "LATEST_VERSION=$(cat current_version.txt)" >> $GITHUB_ENV
+
+      - name: Compare Versions
+        id: check
+        run: |
+          if cmp -s current_version.txt RobloxVersion.txt; then
+            echo "No update detected"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Update detected"
+            mv current_version.txt RobloxVersion.txt
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and Push if changed
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add RobloxVersion.txt
+          git commit -m "New roblox version detected : ${{ env.LATEST_VERSION }}"
+          git push
+
+      - name: Exécuter ton script
+        if: steps.check.outputs.changed == 'true'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          VERSION=$(cat version.txt)
+          MESSAGE="New Roblox update detected"
+          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"🚀 Nouvelle mise à jour Roblox ! Version: $VERSION\"}" DISCORD_WEBHOOK
