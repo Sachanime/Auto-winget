@@ -1,4 +1,5 @@
 name: Roblox Update Checker
+runs-on: ubuntu-latest
 
 on:
   schedule:
@@ -7,7 +8,6 @@ on:
 
 jobs:
   check-version:
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
