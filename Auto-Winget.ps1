@@ -226,4 +226,27 @@ if($TeamSpeakWinget) {
 
 }
 
+#OpenAL Patch
+$OpenALWinget = winget upgrade --id CreativeTechnology.OpenAL --include-unknown 2>&1
+
+if($OpenALWinget -cmatch "Version") {
+
+    Write-Host ""
+    Write-Host "OpenAL installation detected, patching Windows Registry..." -ForegroundColor Blue
+    Write-Host ""
+    Start-Sleep 1
+
+    $OpenALVersionLine = winget show --id CreativeTechnology.OpenAL | Select-String "Version"
+    $OpenALVersion = [regex]::match($OpenALVersionLine, '([0-9]+(\.[0-9])*)').Value
+    $OpenALRegPath = "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\OpenAL"
+
+    REG ADD $OpenALRegPath /v DisplayVersion /t REG_SZ /d $OpenALVersion /F
+
+    Write-Host ""
+    Write-Host "Windows Registry has been patched for OpenAL" -ForegroundColor Green
+    Write-Host ""
+    Start-Sleep 3
+
+}
+
 winget upgrade --include-unknown --wait
