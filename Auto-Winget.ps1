@@ -39,7 +39,9 @@ $DiscordWinget = winget upgrade | Select-String Discord
 if($DiscordWinget) {
 
     Write-Host ""
-    Write-Host "Discord installation detected, adding to pin list..." -ForegroundColor Blue
+    Write-Host "Discord installation detected, this package can't be patched" -ForegroundColor Red
+    Write-Host "If you want to help to support this package, you can contribute to this project at https://github.com/Sachanime/Auto-winget" -ForegroundColor Blue
+    Write-Host "Adding to pin list..." - -ForegroundColor Blue
     Write-Host ""
     Start-Sleep 1
 
@@ -95,6 +97,26 @@ if($RobloxWinget -cmatch "Version") {
     Write-Host "Windows Registry has been patched for Roblox" -ForegroundColor Green
     Write-Host ""
     Start-Sleep 3
+
+}
+
+# Roblox Studio Patch
+$RobloxStudioWinget = winget upgrade --id QQ.RobloxStudioCN --include-unknown 2>&1
+
+if($RobloxStudioWinget -cmatch "Version") {
+
+    Write-Host ""
+    Write-Host "Roblox Studio installation detected, this package can't be patched" -ForegroundColor Red
+    Write-Host "If you want to help to support this package, you can contribute to this project at https://github.com/Sachanime/Auto-winget" -ForegroundColor Blue
+    Write-Host "Adding to pin list..." - -ForegroundColor Blue
+    Write-Host ""
+    Start-Sleep 1
+
+    winget pin add --id QQ.RobloxStudioCN
+    Write-Host ""
+    Write-Host "Roblox Studio has been added to pin list" -ForegroundColor Green
+    Write-Host ""
+    Start-Sleep 1
 
 }
 
